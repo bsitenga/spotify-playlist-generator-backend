@@ -11,16 +11,14 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 //Searches for song
 app.get('/search', (req, res) => {
-	axios
-		.get('https://jsonplaceholder.typicode.com/todos/1')
-		.then(function(response) {
-			// handle success
-			console.log(response);
-		})
-		.catch(function(error) {
-			// handle error
-			console.log(error);
-		})
+  let searchObject = req.body.searchObject;
+  let trackIDs = [];
+  //TODO: go through the search object and push each track href to the trackIDs array
+
+  const data = {
+    trackIDs: trackIDs,
+  }
+  res.send(data);
 });
 
 // The "catchall" handler: for any request that doesn't
