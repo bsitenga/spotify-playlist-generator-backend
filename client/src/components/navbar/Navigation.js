@@ -6,7 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 function Navigation() {
 	return (
 		<div className="navbar-master-container">
-			<Navbar bg="light" expand="lg">
+			<Navbar bg="light">
 				<Navbar.Brand href="#home">Epic App</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
