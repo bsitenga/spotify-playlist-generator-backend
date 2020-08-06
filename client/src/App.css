@@ -25,7 +25,7 @@ white: F2F2F2
 
 /* HERO */
 .hero-row {
-    background-color: #65CCB8;
+    background-color: #57BA98;
     height: 600px;
 }
 
@@ -37,6 +37,8 @@ white: F2F2F2
 .hero-paragraph {
     margin-left: 40px;
     margin-top: 20px;
+    color: #f2f2f2;
+    font-size: 20px;
 }
 
 .hero-button {
@@ -51,10 +53,17 @@ white: F2F2F2
     color: #182628;
 }
 
-.hero-left {
-    
+.hero-button:focus {
+    outline: none;
 }
 
 .hero-left h1 {
     color: #f2f2f2;
+}
+
+.hero-right {
+    background: #f2f2f2;
+    max-width: 50vw;
+    margin: 0 auto;
+    text-align: center;
 }
