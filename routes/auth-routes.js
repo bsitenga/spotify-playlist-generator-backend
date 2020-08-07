@@ -3,7 +3,7 @@ const passport = require('passport');
 
 router.get('/spotify', passport.authenticate('spotify'));
 
-app.get(
+router.get(
     '/auth/spotify/redirect',
     passport.authenticate('spotify', { failureRedirect: '/' }),
     function(req, res) {
