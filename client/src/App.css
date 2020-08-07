@@ -62,8 +62,36 @@ white: F2F2F2
 }
 
 .hero-right {
-    background: #f2f2f2;
+    background: #182628;
     max-width: 50vw;
     margin: 0 auto;
     text-align: center;
+    margin-top: 100px;
+    height: 550px;
+}
+
+.hero-right h3 {
+    color: #f2f2f2;
+    padding-top: 40px;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.hero-right input {
+    font-size: 20px;
+    outline: none;
+    padding-left: 5px;
+}
+
+.hero-right button {
+    background-color: #f2f2f2;
+    font-size: 20px;
+    border: none;
+    padding: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.hero-right button:focus {
+    outline: none;
 }

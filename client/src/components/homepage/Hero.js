@@ -6,15 +6,15 @@ import Col from 'react-bootstrap/Col';
 
 function Hero() {
 	const [ tracks, setTracks ] = useState([]);
-	const [ trackInput, setTrackInput ] = useState("");
+	const [ trackInput, setTrackInput ] = useState('');
 
-  const addTrack = () => {
-    let trackCopy = tracks;
-    let trackObject = {name: trackInput, artist: "Kanye West"};
-    trackCopy.push(trackObject);
-    setTracks(trackCopy);
-    setTrackInput("")
-  }
+	const addTrack = () => {
+		let trackCopy = tracks;
+		let trackObject = { name: trackInput, artist: 'Kanye West' };
+		trackCopy.push(trackObject);
+		setTracks(trackCopy);
+		setTrackInput('');
+	};
 
 	return (
 		<div className="hero-master-container">
@@ -28,20 +28,23 @@ function Hero() {
 								aliquet vestibulum. Phasellus egestas dolor massa, ut mollis leo tempor interdum.
 								Curabitur finibus.
 							</p>
-							<button className="hero-button">Login with Spotify</button>
+							<button className="hero-button">
+								<i class="fab fa-spotify" />{' '}
+								Login with Spotify
+							</button>
 						</div>
 					</Col>
 					<Col md={7}>
 						<div className="hero-right">
 							<h3>Generate a playlist</h3>
 							<input
-								placeholder="Enter a track title"
+								placeholder="Track title"
 								onChange={(e) => {
 									setTrackInput(e.target.value);
 								}}
 								value={trackInput}
 							/>
-							<button onClick={() => addTrack()}>Add</button>
+							<button onClick={() => addTrack()}>Add+</button>
 							<div>
 								<p>Current tracks</p>
 								<div className="current-tracks">
