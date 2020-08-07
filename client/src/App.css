@@ -122,3 +122,13 @@ white: F2F2F2
 .current-tracks p {
     font-size: 20px;
 }
+
+/* HOMEPAGEMAIN */
+.home-page-master-container h2 {
+    margin-left: 40px;
+    margin-top: 15px;
+}
+
+.home-page-master-container {
+    background-color: #f1f1f1;
+}

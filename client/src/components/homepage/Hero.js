@@ -25,7 +25,7 @@ function Hero() {
 				<Row className="hero-row">
 					<Col md={5} className="hero-left">
 						<div>
-							<h1 className="hero-header">Login to Spotify to save your playlists.</h1>
+							<h1 className="hero-header">Login to Spotify to create your playlists.</h1>
 							<p className="hero-paragraph">
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit risus non nulla
 								aliquet vestibulum. Phasellus egestas dolor massa, ut mollis leo tempor interdum.
