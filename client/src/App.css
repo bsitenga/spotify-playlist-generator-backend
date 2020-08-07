@@ -73,7 +73,7 @@ white: F2F2F2
 .hero-right h3 {
     color: #f2f2f2;
     padding-top: 40px;
-    font-size: 30px;
+    font-size: 35px;
     margin-bottom: 30px;
 }
 
@@ -94,4 +94,31 @@ white: F2F2F2
 
 .hero-right button:focus {
     outline: none;
+}
+
+.hero-right p {
+    color: #f2f2f2;
+}
+
+.hero-right hr {
+    color: #f2f2f2;
+    background-color: #f2f2f2;
+    width: 90%;
+    border: 0;
+    height: 1px;
+    background: #f2f2f2;
+    background-image: linear-gradient(to right, #182628, #f2f2f2, #182628);
+}
+
+.current-track-title {
+    margin-top: 15px;
+    font-size: 25px;
+}
+
+.current-tracks {
+    height: 250px;
+}
+
+.current-tracks p {
+    font-size: 20px;
 }
