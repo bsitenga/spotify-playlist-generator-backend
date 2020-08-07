@@ -21,7 +21,7 @@ function Hero() {
   };
   
   const spotifyLogin = () => {
-    axios.get('http://whispering-sierra-43738.herokuapp.com/login')
+    axios.get('http://whispering-sierra-43738.herokuapp.com/spotify')
     .then(function (response) {
       console.log(response);
     })
