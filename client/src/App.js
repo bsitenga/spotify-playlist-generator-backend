@@ -7,8 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div className="master-container">
-      <Navigation></Navigation>
-      <HomePageMain></HomePageMain>
+      <Navigation />
+      <HomePageMain />
     </div>
   );
 }
