@@ -2,15 +2,17 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors')
 const axios = require('axios');
+const authRoutes = require('./routes/auth-routes.js');
 
 const app = express();
+
+app.use(cors());
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.use(cors());
-
 // all API endpoints below
+app.use('/auth', authRoutes);
 
 //Searches for song
 app.get('/search', (req, res) => {
