@@ -3,6 +3,7 @@ import '../../App.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import axios from 'axios';
 
 function Hero() {
 	const [ tracks, setTracks ] = useState([]);
@@ -17,7 +18,17 @@ function Hero() {
 			setTracks(trackCopy);
 			setTrackInput('');
 		}
-	};
+  };
+  
+  const spotifyLogin = () => {
+    axios.get('http://whispering-sierra-43738.herokuapp.com/login')
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  }
 
 	return (
 		<div className="hero-master-container">
@@ -31,7 +42,7 @@ function Hero() {
 								aliquet vestibulum. Phasellus egestas dolor massa, ut mollis leo tempor interdum.
 								Curabitur finibus.
 							</p>
-							<button className="hero-button">
+							<button className="hero-button" onClick={() => spotifyLogin()}>
 								<i class="fab fa-spotify" /> Login with Spotify
 							</button>
 						</div>

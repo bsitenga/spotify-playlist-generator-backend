@@ -21,6 +21,15 @@ app.get('/search', (req, res) => {
   res.send(data);
 });
 
+app.get('/login', function(req, res) {
+  var scopes = 'user-read-private user-read-email';
+  res.redirect('https://accounts.spotify.com/authorize' +
+    '?response_type=code' +
+    '&client_id=' + 'f0c3aa26b442470db2737973a26efc0a' +
+    (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
+    '&redirect_uri=' + encodeURIComponent('http://whispering-sierra-43738.herokuapp.com/'));
+  });
+
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get('*', (req, res) => {

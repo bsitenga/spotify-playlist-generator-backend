@@ -1,13 +1,14 @@
 import React from 'react';
 import '../../App.css';
 import Hero from './Hero.js';
+import FavoritePlaylists from './FavoritePlaylists.js';
 
 function HomePageMain() {
   return (
     <div className="home-page-master-container">
-      <Hero></Hero>
+      <Hero />
       <h2>Our Favorite Playlists</h2>
-      
+      <FavoritePlaylists />
     </div>
   );
 }
