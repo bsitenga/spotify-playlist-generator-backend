@@ -3,7 +3,6 @@ import '../../App.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import axios from 'axios';
 
 function Hero() {
 	const [ tracks, setTracks ] = useState([]);
@@ -11,7 +10,12 @@ function Hero() {
 	const [ rightTitle, setRightTitle ] = useState('Choose Five Songs');
 
 	const clientID = 'f0c3aa26b442470db2737973a26efc0a';
-	const authEndpoint = 'https://accounts.spotify.com/authorize' + '?response_type=token' + '&client_id=' + clientID + '&redirect_uri=http://localhost:3000';
+	const authEndpoint =
+		'https://accounts.spotify.com/authorize' +
+		'?response_type=token' +
+		'&client_id=' +
+		clientID +
+		'&redirect_uri=http://localhost:3000';
 
 	const addTrack = () => {
 		if (tracks.length < 5 && trackInput !== '') {
@@ -21,17 +25,7 @@ function Hero() {
 			setTracks(trackCopy);
 			setTrackInput('');
 		}
-  };
-  
-  const spotifyLogin = () => {
-    axios.get(authEndpoint)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log("caught:", error);
-    })
-  }
+	};
 
 	return (
 		<div className="hero-master-container">
@@ -45,9 +39,11 @@ function Hero() {
 								aliquet vestibulum. Phasellus egestas dolor massa, ut mollis leo tempor interdum.
 								Curabitur finibus.
 							</p>
-							<button className="hero-button" onClick={() => spotifyLogin()}>
-								<i className="fab fa-spotify" /> Login with Spotify
-							</button>
+							<a href={authEndpoint}>
+								<button className="hero-button">
+									<i className="fab fa-spotify" /> Login with Spotify
+								</button>
+							</a>
 							<a href={authEndpoint}>tester</a>
 						</div>
 					</Col>
