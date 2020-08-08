@@ -8,7 +8,7 @@ router.get(
     passport.authenticate('spotify', { failureRedirect: '/' }),
     function(req, res) {
       // Successful authentication, redirect home.
-      res.redirect('/');
+      res.redirect('/about');
     }
   );
 
