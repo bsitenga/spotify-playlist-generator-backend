@@ -5,6 +5,7 @@ import HomePageMain from './components/homepage/HomePageMain.js';
 import Navigation from './components/navbar/Navigation.js';
 import About from './components/about/About.js';
 import Developers from './components/developers/Developers.js';
+import FAQ from './components/faq/FAQ.js';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
