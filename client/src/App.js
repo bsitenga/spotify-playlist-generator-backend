@@ -6,6 +6,7 @@ import Navigation from './components/navbar/Navigation.js';
 import About from './components/about/About.js';
 import Developers from './components/developers/Developers.js';
 import FAQ from './components/faq/FAQ.js';
+import HomePageMainAuthenticated from './components/homepage/HomePageMainAuthenticated.js';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -17,7 +18,7 @@ function App() {
 			</div>
 
       <Switch>
-        <Route path="/FAQ">
+        <Route path='/FAQ'>
           <FAQ />
         </Route>
         <Route path='/about'>
@@ -26,7 +27,10 @@ function App() {
         <Route path='/developers'>
           <Developers />
         </Route>
-        <Route path="/">
+        <Route path='/authenticated'>
+          <HomePageMainAuthenticated />
+        </Route>
+        <Route path='/'>
           <HomePageMain />
         </Route>
       </Switch>

@@ -61,6 +61,12 @@ white: F2F2F2
     color: #f2f2f2;
 }
 
+@media screen and (max-width: 767px){
+    .hero-right {
+        visibility: hidden;
+    }
+}
+
 .hero-right {
     background: #182628;
     max-width: 50vw;

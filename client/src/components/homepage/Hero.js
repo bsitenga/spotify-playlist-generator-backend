@@ -12,10 +12,10 @@ function Hero() {
 	const clientID = 'f0c3aa26b442470db2737973a26efc0a';
 	const authEndpoint =
 		'https://accounts.spotify.com/authorize' +
-		'?response_type=token' +
+		'?response_type=code' +
 		'&client_id=' +
 		clientID +
-		'&redirect_uri=http://localhost:3000';
+		'&redirect_uri=http://localhost:3000/authenticated';
 
 	const addTrack = () => {
 		if (tracks.length < 5 && trackInput !== '') {
@@ -44,7 +44,6 @@ function Hero() {
 									<i className="fab fa-spotify" /> Login with Spotify
 								</button>
 							</a>
-							<a href={authEndpoint}>tester</a>
 						</div>
 					</Col>
 					<Col md={7}>
