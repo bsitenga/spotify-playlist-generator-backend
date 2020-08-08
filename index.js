@@ -3,7 +3,6 @@ const path = require('path');
 const cors = require('cors')
 const passport = require('passport');
 const SpotifyStrategy = require('passport-spotify').Strategy;
-const keys = require('./config/keys.js')
 
 const app = express();
 
@@ -12,8 +11,8 @@ app.use(cors({origin: true, credentials: true}));
 passport.use(
   new SpotifyStrategy(
     {
-      clientID: keys.spotify.clientID,
-      clientSecret: keys.spotify.clientSecret,
+      clientID: process.env.clientID,
+      clientSecret: process.env.clientSecret,
       callbackURL: 'http://whispering-sierra-43738.herokuapp.com/auth/spotify/callback'
     },
     function(accessToken, refreshToken, expires_in, profile, done) {
