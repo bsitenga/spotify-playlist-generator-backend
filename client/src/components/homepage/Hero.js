@@ -4,7 +4,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
-import { BrowserRouter as Link } from 'react-router-dom';
 
 function Hero() {
 	const [ tracks, setTracks ] = useState([]);
@@ -22,7 +21,7 @@ function Hero() {
   };
   
   const spotifyLogin = () => {
-    axios.get('http://whispering-sierra-43738.herokuapp.com/auth/spotify')
+    axios.get('https://whispering-sierra-43738.herokuapp.com/auth/spotify')
     .then(function (response) {
       console.log(response);
     })
