@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
+import { BrowserRouter as Link } from 'react-router-dom';
 
 function Hero() {
 	const [ tracks, setTracks ] = useState([]);
@@ -21,12 +22,12 @@ function Hero() {
   };
   
   const spotifyLogin = () => {
-    axios.get('http://whispering-sierra-43738.herokuapp.com/spotify')
+    axios.get('http://whispering-sierra-43738.herokuapp.com/auth/spotify')
     .then(function (response) {
       console.log(response);
     })
     .catch(function (error) {
-      console.log(error);
+      console.log("caught:", error);
     })
   }
 
@@ -43,7 +44,7 @@ function Hero() {
 								Curabitur finibus.
 							</p>
 							<button className="hero-button" onClick={() => spotifyLogin()}>
-								<i class="fab fa-spotify" /> Login with Spotify
+								<i className="fab fa-spotify" /> Login with Spotify
 							</button>
 						</div>
 					</Col>

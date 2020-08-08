@@ -1,18 +1,45 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors')
-const axios = require('axios');
-const authRoutes = require('./routes/auth-routes.js');
+const passport = require('passport');
+const SpotifyStrategy = require('passport-spotify').Strategy;
+const keys = require('./config/keys.js')
 
 const app = express();
 
-app.use(cors());
+app.use(cors({origin: true, credentials: true}));
+
+passport.use(
+  new SpotifyStrategy(
+    {
+      clientID: keys.spotify.clientID,
+      clientSecret: keys.spotify.clientSecret,
+      callbackURL: 'http://whispering-sierra-43738.herokuapp.com/auth/spotify/callback'
+    },
+    function(accessToken, refreshToken, expires_in, profile, done) {
+      console.log('profile:', profile)
+    }
+  )
+);
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 // all API endpoints below
-app.use('/auth', authRoutes);
+
+app.get('/auth/spotify', passport.authenticate('spotify'), function(req, res) {
+  
+});
+
+app.get(
+    '/auth/spotify/callback',
+    passport.authenticate('spotify', { failureRedirect: '/' }),
+    function(req, res) {
+      console.log('successful authentication');
+      // Successful authentication, redirect home.
+      res.redirect('/about');
+    }
+  );
 
 //Searches for song
 app.get('/search', (req, res) => {
@@ -25,15 +52,6 @@ app.get('/search', (req, res) => {
   }
   res.send(data);
 });
-
-app.get('/login', function(req, res) {
-  var scopes = 'user-read-private user-read-email';
-  res.redirect('https://accounts.spotify.com/authorize' +
-    '?response_type=code' +
-    '&client_id=' + 'f0c3aa26b442470db2737973a26efc0a' +
-    (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
-    '&redirect_uri=' + encodeURIComponent('http://whispering-sierra-43738.herokuapp.com/'));
-  });
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
