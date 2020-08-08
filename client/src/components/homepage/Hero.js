@@ -10,6 +10,9 @@ function Hero() {
 	const [ trackInput, setTrackInput ] = useState('');
 	const [ rightTitle, setRightTitle ] = useState('Choose Five Songs');
 
+	const clientID = 'f0c3aa26b442470db2737973a26efc0a';
+	const authEndpoint = 'https://accounts.spotify.com/authorize' + '?response_type=token' + '&client_id=' + clientID + '&redirect_uri=http://localhost:3000';
+
 	const addTrack = () => {
 		if (tracks.length < 5 && trackInput !== '') {
 			let trackCopy = tracks;
@@ -21,7 +24,7 @@ function Hero() {
   };
   
   const spotifyLogin = () => {
-    axios.get('https://whispering-sierra-43738.herokuapp.com/auth/spotify')
+    axios.get(authEndpoint)
     .then(function (response) {
       console.log(response);
     })
@@ -45,6 +48,7 @@ function Hero() {
 							<button className="hero-button" onClick={() => spotifyLogin()}>
 								<i className="fab fa-spotify" /> Login with Spotify
 							</button>
+							<a href={authEndpoint}>tester</a>
 						</div>
 					</Col>
 					<Col md={7}>

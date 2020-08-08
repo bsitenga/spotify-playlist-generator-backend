@@ -13,7 +13,7 @@ passport.use(
     {
       clientID: process.env.clientID,
       clientSecret: process.env.clientSecret,
-      callbackURL: 'https://whispering-sierra-43738.herokuapp.com/auth/spotify/callback'
+      callbackURL: 'http://localhost:5000/auth/spotify/callback'
     },
     function(accessToken, refreshToken, expires_in, profile, done) {
       console.log('profile:', profile)
