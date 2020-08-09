@@ -91,7 +91,8 @@ white: F2F2F2
 
 .hero-right button {
     background-color: #f2f2f2;
-    font-size: 20px;
+    margin-top: 1px;
+    font-size: 21px;
     border: none;
     padding: 2px;
     padding-left: 10px;
@@ -130,7 +131,7 @@ white: F2F2F2
 }
 
 /* HOMEPAGEMAIN */
-.home-page-master-container h2 {
+.favorite-playlists-header {
     margin-left: 40px;
     margin-top: 15px;
 }
