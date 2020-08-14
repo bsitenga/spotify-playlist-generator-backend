@@ -28,7 +28,7 @@ function Hero() {
 							</p>
 							<a href={authEndpoint}>
 								<button className="hero-button">
-									<i className="fab fa-spotify" /> Login with Spotify
+									<i className="fab fa-spotify" /> Login with Spotify hehexd
 								</button>
 							</a>
 						</div>
