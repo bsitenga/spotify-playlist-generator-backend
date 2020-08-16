@@ -13,26 +13,24 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 //Searches for song
 app.get('/search', (req, res) => {
   let searchObject = req.body.searchObject;
-  let itemArray = searchObject.tracks.item
-  let trackIDs = [];
-  let names = [];
-  let artists = [];
+  let itemArray = searchObject.tracks.items
+  let trackIDs = []; 
+  let aritsts = [];
   let popularity = [];
-  //TODO: go through the search object and push each track href to the trackIDs array
-  //      name, href, artist, popularity
-  
-  for (let i = 0; i < itemArray.length; i++) {
-    trackIDs[i] = itemArray[i].href;
-    names[i] = itemArray[i].name;
-    artists[i] = itemArray[i].album.artists.name;
-    popularity[i] = itemArray[i].popularity;
+  let name = [];
+  // iterates through the search object and pushes href, artists, popularity, and name to its respective array
+  for(let i=0;i<itemArray.length;i++){
+    trackIDs.push(itemArray[i].href)
+    artists.push(itemArray[i].artists.name)
+    popularity.push(itemArray[i].popularity)
+    name.push(itemArray[i].name)
   }
-
   const data = {
     trackIDs: trackIDs,
-    names: names,
     artists: artists,
-    popularity: popularity
+    popularity: popularity,
+    name: name
+    
   }
   res.send(data);
 });
