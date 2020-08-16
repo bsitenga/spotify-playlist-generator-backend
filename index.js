@@ -13,25 +13,29 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 //Searches for song
 app.get('/search', (req, res) => {
   let searchObject = req.body.searchObject;
+  let itemArray = searchObject.tracks.item
   let trackIDs = [];
+  let names = [];
+  let artists = [];
+  let popularity = [];
   //TODO: go through the search object and push each track href to the trackIDs array
-  // scope: user-library-modify
+  //      name, href, artist, popularity
+  
+  for (let i = 0; i < itemArray.length; i++) {
+    trackIDs[i] = itemArray[i].href;
+    names[i] = itemArray[i].name;
+    artists[0] = itemArray[i].album.artists.name;
+    popularity[0] = itemArray[i].popularity;
+  }
+
   const data = {
     trackIDs: trackIDs,
+    names: names,
+    artists: artists,
+    popularity: popularity
   }
   res.send(data);
 });
-
-// Authorizes user's Spotify account
-app.get('authorize', (req, res) => {
-  var scopes = 'playlist-modify-public'; // Allows for the app to modify the user's public playlists
-  res.redirect('https://accounts.spotify.com/authorize' + 
-  '?response_type=code' +
-  '&client_id=' + my_client_id +
-  (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
-  '&redirect_uri' + encodeURIComponent(redirect_uri));
-});
-
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
