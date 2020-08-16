@@ -24,8 +24,8 @@ app.get('/search', (req, res) => {
   for (let i = 0; i < itemArray.length; i++) {
     trackIDs[i] = itemArray[i].href;
     names[i] = itemArray[i].name;
-    artists[0] = itemArray[i].album.artists.name;
-    popularity[0] = itemArray[i].popularity;
+    artists[i] = itemArray[i].album.artists.name;
+    popularity[i] = itemArray[i].popularity;
   }
 
   const data = {
