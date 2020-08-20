@@ -2,22 +2,31 @@ import React, { useState } from 'react';
 import '../../App.css';
 
 function HeroRight() {
-    const [ tracks, setTracks ] = useState([]);
-	const [ trackInput, setTrackInput ] = useState('');
-	const [ rightTitle, setRightTitle ] = useState('Choose Five Tracks');
+    const [tracks, setTracks] = useState([]);
+    const [trackInput, setTrackInput] = useState('');
+    const [nextStep, setNextStep] = useState(false);
 
-	const addTrack = () => {
-		if (tracks.length < 5 && trackInput !== '') {
-			let trackCopy = tracks;
-			let trackObject = { name: trackInput, artist: 'Kanye West', time: '3:10' };
-			trackCopy.push(trackObject);
-			setTracks(trackCopy);
-			setTrackInput('');
-		}
-	};
+    const clientID = 'f0c3aa26b442470db2737973a26efc0a';
+    const authEndpoint =
+        'https://accounts.spotify.com/authorize' +
+        '?response_type=code' +
+        '&client_id=' +
+        clientID +
+        '&redirect_uri=http://localhost:3000/authenticated';
+
+    const addTrack = () => {
+        if (tracks.length < 5 && trackInput !== '') {
+            let trackCopy = tracks;
+            let trackObject = { name: trackInput, artist: 'Kanye West', time: '3:10' };
+            trackCopy.push(trackObject);
+            setTracks(trackCopy);
+            setTrackInput('');
+        }
+    };
+
     return (
         <div className="hero-right">
-            <h3>{rightTitle}</h3>
+            {nextStep ? <h3>Login to Create</h3> : <h3>Choose Up to Five Tracks</h3>}
             <input
                 placeholder="Track title"
                 onChange={(e) => {
@@ -41,7 +50,12 @@ function HeroRight() {
                     })}
                 </div>
             </div>
-            <button className="next-step-button">Next Step</button>
+            {nextStep ? <a href={authEndpoint}>
+                <button className="hero-button">
+                    <i className="fab fa-spotify" /> Login with Spotify hehexd
+								</button>
+            </a> : <button onClick={() => setNextStep(true)} className="next-step-button">Next Step</button>}
+
         </div>
     );
 }
