@@ -4,7 +4,7 @@ import '../../App.css';
 function HeroRight() {
     const [ tracks, setTracks ] = useState([]);
 	const [ trackInput, setTrackInput ] = useState('');
-	const [ rightTitle, setRightTitle ] = useState('Choose Five Songs');
+	const [ rightTitle, setRightTitle ] = useState('Choose Five Tracks');
 
 	const addTrack = () => {
 		if (tracks.length < 5 && trackInput !== '') {
