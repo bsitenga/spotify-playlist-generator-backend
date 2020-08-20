@@ -15,7 +15,7 @@ app.get('/search', (req, res) => {
   let searchObject = req.body.searchObject;
   let itemArray = searchObject.tracks.items
   let trackIDs = []; 
-  let aritsts = [];
+  let artists = [];
   let popularity = [];
   let name = [];
   // iterates through the search object and pushes href, artists, popularity, and name to its respective array
