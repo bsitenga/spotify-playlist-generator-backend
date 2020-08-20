@@ -26,7 +26,7 @@ function HeroRight() {
     };
 
     const goToNext = () => {
-        if (tracks.length == 0) {
+        if (tracks.length === 0) {
             setErrorMessage("Add at least one track");
         } else {
             setErrorMessage("");

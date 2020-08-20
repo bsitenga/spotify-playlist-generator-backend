@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import '../../App.css';
 import axios from 'axios';
 import qs from 'qs';
+import ReactSearchBox from 'react-search-box'
 
 function HeroAuthenticated() {
   const [accessToken, setAccessToken] = useState('');
+  const [trackInput, setTrackInput] = useState('');
+  const [tracks, setTracks] = useState([]);
 
   useEffect(() => {
     let code = getParams(window.location.href).code;
@@ -31,7 +34,7 @@ function HeroAuthenticated() {
         }
       })
         .then(function (response) {
-          setAccessToken(response);
+          setAccessToken(response.data.access_token);
           console.log(response);
         })
         .catch(function (error) {
@@ -56,9 +59,34 @@ function HeroAuthenticated() {
     return params;
   }
 
+  const searchForTrack = () => {
+    let searchString = trackInput.replace(" ", "%20")
+    axios({
+      method: 'get',
+      url: 'https://api.spotify.com/v1/search?q=' + searchString + '&type=track&limit=5',
+      headers: {
+        Authorization: "Bearer " + accessToken
+      }
+    })
+    .then(function(response) {
+      console.log(response);
+    })
+    .catch(function(error) {
+      console.log('search error', error.response);
+    })
+  }
+
   const AuthenticatedTokenPage = () => {
     return <div className="authenticated-token-page">
       <h3>Choose Up to Five Songs</h3>
+      <ReactSearchBox
+        placeholder="Search for a track or artist"
+        value={trackInput}
+        data={tracks}
+        onChange={e => setTrackInput(e)}
+        callback={record => console.log(record)}
+      />
+      <button onClick={() => searchForTrack()}>Search</button>
     </div>
   }
 
@@ -71,7 +99,8 @@ function HeroAuthenticated() {
 
   return (
     <div className="hero-authenticated">
-      {accessToken ? AuthenticatedTokenPage() : LoadingError()}
+      {/* {accessToken ? AuthenticatedTokenPage() : LoadingError()} */}
+      {AuthenticatedTokenPage()}
     </div>
   );
 }

@@ -19,6 +19,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "passport": "^0.4.1",
-    "passport-spotify": "^1.1.0"
+    "passport-spotify": "^1.1.0",
+    "react-search-box": "^2.0.2"
   }
 }
