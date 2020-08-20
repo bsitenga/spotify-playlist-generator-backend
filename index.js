@@ -24,7 +24,7 @@ app.post('/search', jsonParser, (req, res) => {
   // iterates through the search object and pushes href, artists, popularity, and name to its respective array
   for(let i=0;i<itemArray.length;i++){
     trackIDs.push(itemArray[i].href)
-    artists.push(itemArray[i].artists.name)
+    artists.push(itemArray[i].artists[0].name)
     popularity.push(itemArray[i].popularity)
     name.push(itemArray[i].name)
   }
