@@ -69,6 +69,14 @@ function HeroAuthenticated() {
       }
     })
     .then(function(response) {
+      return axios.post('http://localhost:5000/search', {
+        searchObject: response.data
+      })
+      .catch(function(error) {
+        console.log('internal search error', error)
+      })
+    })
+    .then(function(response) {
       console.log(response);
     })
     .catch(function(error) {

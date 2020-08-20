@@ -1,7 +1,10 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors')
+const bodyParser = require('body-parser')
 const app = express();
+
+let jsonParser = bodyParser.json();
 
 app.use(cors({origin: true, credentials: true}));
 
@@ -11,7 +14,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 // all API endpoints below
 
 //Searches for song
-app.get('/search', (req, res) => {
+app.post('/search', jsonParser, (req, res) => {
   let searchObject = req.body.searchObject;
   let itemArray = searchObject.tracks.items
   let trackIDs = []; 
