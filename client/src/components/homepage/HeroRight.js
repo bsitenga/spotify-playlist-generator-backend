@@ -5,7 +5,7 @@ function HeroRight() {
     const [tracks, setTracks] = useState([]);
     const [trackInput, setTrackInput] = useState('');
     const [nextStep, setNextStep] = useState(false);
-    const [errorMessage, setErrorMessage ] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const clientID = 'f0c3aa26b442470db2737973a26efc0a';
     const authEndpoint =
@@ -29,6 +29,7 @@ function HeroRight() {
         if (tracks.length == 0) {
             setErrorMessage("Add at least one track");
         } else {
+            setErrorMessage("");
             setNextStep(true);
         }
     }
@@ -60,7 +61,7 @@ function HeroRight() {
                 </div>
             </div>
             {nextStep ? <a href={authEndpoint}>
-                <button className="hero-button">
+                <button className="hero-button" style={{ marginLeft: '0' }}>
                     <i className="fab fa-spotify" /> Login with Spotify
 								</button>
             </a> : <button onClick={() => goToNext()} className="next-step-button">Next Step</button>}
