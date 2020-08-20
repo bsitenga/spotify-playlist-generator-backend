@@ -27,7 +27,7 @@ function App() {
         <Route path='/developers'>
           <Developers />
         </Route>
-        <Route path='/authenticated'>
+        <Route path='/authenticated/'>
           <HomePageMainAuthenticated />
         </Route>
         <Route path='/'>
