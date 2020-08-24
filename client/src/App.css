@@ -154,11 +154,11 @@ white: F2F2F2
 
 .mode-toggle button {
     font-size: max(1.7vw, 15px);
-    color: #1bb157;
+    color: #1db954;
     padding-left: .8vw;
     padding-right: .8vw;
     background-color: #f1f1f1;
-    border: 2px solid #1bb157;
+    border: 2px solid #1db954;
     outline: none;
 }
 
@@ -172,5 +172,22 @@ white: F2F2F2
 
 .mode-toggle button.active-mode {
     color: #f1f1f1;
-    background-color:  #1bb157;
+    background-color:  #1db954;
+}
+
+/* CHOOSEMODE */
+.choose-mode-master-container {
+    text-align: center;
+}
+
+.search-area {
+    margin-top: 7vh;
+}
+
+.track-search {
+    font-size: 2vw;
+}
+
+.search-area-button {
+    font-size: 2vw;
 }

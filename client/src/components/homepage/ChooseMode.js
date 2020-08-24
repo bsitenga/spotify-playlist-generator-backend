@@ -33,13 +33,22 @@ function ChooseMode(props) {
             })
     }
 
+    const handleEnter = (key) => {
+        if (key === 'Enter') {
+            searchForTrack();
+        }
+    }
+
     return <div className="choose-mode-master-container">
-        <h3>Choose Songs</h3>
-        <input type="text"
-            placeholder="Search for a track"
-            value={trackInput}
-            onChange={e => setTrackInput(e.target.value)}></input>
-        <button onClick={() => searchForTrack()}>Search</button>
+        <div className="search-area">
+            <input type="text"
+                placeholder="Search for a track"
+                value={trackInput}
+                className="track-search"
+                onKeyDown={e => handleEnter(e.key)}
+                onChange={e => setTrackInput(e.target.value)}></input>
+            <button onClick={() => searchForTrack()} className="search-area-button">Search</button>
+        </div>
     </div>
 }
 
