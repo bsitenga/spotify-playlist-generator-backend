@@ -8,6 +8,14 @@ function HeroAuthenticated() {
   const [accessToken, setAccessToken] = useState('');
   const [userMode, setUserMode] = useState(2);
 
+  const clientID = 'f0c3aa26b442470db2737973a26efc0a';
+	const authEndpoint =
+		'https://accounts.spotify.com/authorize' +
+		'?response_type=code' +
+		'&client_id=' +
+		clientID +
+		'&redirect_uri=http://localhost:3000/authenticated';
+
   useEffect(() => {
     let code = getParams(window.location.href).code;
     if (code) {
@@ -38,6 +46,7 @@ function HeroAuthenticated() {
         })
         .catch(function (error) {
           console.log("post error:", error.response)
+          window.location.replace(authEndpoint);
         })
     } else {
       // TODO: replace url with final url after deploying
