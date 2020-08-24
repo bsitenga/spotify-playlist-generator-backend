@@ -162,10 +162,6 @@ white: F2F2F2
     outline: none;
 }
 
-.mode-toggle button:active {
-    outline: none;
-}
-
 .mode-toggle button:focus {
     outline: none;
 }
@@ -173,6 +169,12 @@ white: F2F2F2
 .mode-toggle button.active-mode {
     color: #f1f1f1;
     background-color:  #1db954;
+}
+
+.mode-toggle button:hover {
+    background-color: #1aa843;
+    color: #f1f1f1;
+    border-color: #17a540;
 }
 
 /* CHOOSEMODE */
@@ -190,4 +192,20 @@ white: F2F2F2
 
 .search-area-button {
     font-size: 2vw;
+    background-color: #1db954;
+    border: 2px solid #1db954;
+    color: #f1f1f1;
+}
+
+.search-area-button:hover {
+    background-color: #1aa843;
+    color: #f1f1f1;
+    border-color: #17a540;
+}
+
+.search-results {
+    position: absolute;
+    background-color: #fff;
+    left: 34.66%;
+    width: 23.5vw;
 }
