@@ -64,7 +64,7 @@ function HeroAuthenticated() {
     } else if (userMode === 3) {
 
     }
-    return <ChooseMode accessToken={accessToken}/>
+    return <ChooseMode accessToken={accessToken} />
   }
 
   const LoadingError = () => {
@@ -77,6 +77,12 @@ function HeroAuthenticated() {
   return (
     <div className="hero-authenticated">
       {/* {accessToken ? AuthenticatedTokenPage() : LoadingError()} */}
+      <div className="mode-toggle">
+        <button onClick={() => setUserMode(1)} className={userMode === 1 ? "activeMode" : ""}>A</button>
+        <button onClick={() => setUserMode(2)} className={userMode === 2 ? "activeMode" : ""}>B</button>
+        <button onClick={() => setUserMode(3)} className={userMode === 3 ? "activeMode" : ""}>C</button>
+        Mode toggle
+      </div>
       {AuthenticatedTokenPage()}
     </div>
   );
