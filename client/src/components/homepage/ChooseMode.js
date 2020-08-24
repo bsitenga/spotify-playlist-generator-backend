@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import '../../App.css';
 import axios from 'axios';
+import Spinner from 'react-bootstrap/Spinner';
 
 function ChooseMode(props) {
     const [trackInput, setTrackInput] = useState('');
     const [tracks, setTracks] = useState([]);
     const [searched, setSearched] = useState(false);
+    const [searchResults, setSearchResults] = useState(false);
 
     const accessToken = props.accessToken;
 
@@ -29,6 +31,7 @@ function ChooseMode(props) {
             })
             .then(function (response) {
                 console.log(response);
+                setSearchResults(response.data);
             })
             .catch(function (error) {
                 console.log('search error', error.response);
@@ -41,6 +44,7 @@ function ChooseMode(props) {
             searchForTrack();
         } else {
             setSearched(false);
+            setSearchResults(false);
         }
     }
 
@@ -54,7 +58,19 @@ function ChooseMode(props) {
                 onChange={e => setTrackInput(e.target.value)}></input>
             <button onClick={() => searchForTrack()} className="search-area-button">Search</button>
             {searched ? <div className="search-results">
-                search results
+                {searchResults ? <div>{searchResults.trackIDs.map((trackID, index) => {
+                    return <div key={index} className='track-result'>
+                        <span>
+                            <h4>{searchResults.name[index]}</h4>
+                            <p>{searchResults.artists[index]}</p>
+                        </span>
+                        <span className="add-track">
+                            Add+
+                        </span>
+                    </div>
+                })}</div>
+                    :
+                    <Spinner style={{ color: '#1db954', margin: '2vh 0 2vh' }} animation="border" role="status"></Spinner>}
             </div> : ''}
             <div className="added-results">
                 test
