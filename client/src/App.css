@@ -139,3 +139,38 @@ white: F2F2F2
 .home-page-master-container {
     background-color: #f1f1f1;
 }
+
+/* HOMEPAGEMAINAUTHENTICATED */
+.home-page-authenticated-master-container {
+    background-color: #f1f1f1;
+}
+
+/* HEROAUTHENTICATED */
+.mode-toggle {
+    padding-top: 4vh;
+    
+    text-align: center;
+}
+
+.mode-toggle button {
+    font-size: max(1.7vw, 15px);
+    color: #1bb157;
+    padding-left: .8vw;
+    padding-right: .8vw;
+    background-color: #f1f1f1;
+    border: 2px solid #1bb157;
+    outline: none;
+}
+
+.mode-toggle button:active {
+    outline: none;
+}
+
+.mode-toggle button:focus {
+    outline: none;
+}
+
+.mode-toggle button.active-mode {
+    color: #f1f1f1;
+    background-color:  #1bb157;
+}

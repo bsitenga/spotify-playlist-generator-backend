@@ -78,12 +78,15 @@ function HeroAuthenticated() {
     <div className="hero-authenticated">
       {/* {accessToken ? AuthenticatedTokenPage() : LoadingError()} */}
       <div className="mode-toggle">
-        <button onClick={() => setUserMode(1)} className={userMode === 1 ? "activeMode" : ""}>A</button>
-        <button onClick={() => setUserMode(2)} className={userMode === 2 ? "activeMode" : ""}>B</button>
-        <button onClick={() => setUserMode(3)} className={userMode === 3 ? "activeMode" : ""}>C</button>
-        Mode toggle
+        <button onClick={() => setUserMode(1)} className={userMode === 1 ? "active-mode" : ""}
+          style={{ borderRight: 'none', borderRadius: '7px 0px 0px 7px' }}>Your Playlists</button>
+        <button onClick={() => setUserMode(2)} className={userMode === 2 ? "active-mode" : ""}>Choose Songs</button>
+        <button onClick={() => setUserMode(3)} className={userMode === 3 ? "active-mode" : ""}
+          style={{ borderLeft: 'none', borderRadius: '0px 7px 7px 0px' }}>Our Playlists</button>
       </div>
-      {AuthenticatedTokenPage()}
+      { userMode === 1 ? '' : ''}
+      { userMode === 2 ? <ChooseMode accessToken={accessToken} /> : ''}
+      { userMode === 3 ? '' : ''}
     </div>
   );
 }
