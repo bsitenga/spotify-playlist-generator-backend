@@ -48,6 +48,13 @@ function ChooseMode(props) {
         }
     }
 
+    const addTrack = (track, image, name, artist) => {
+        console.log(track, image, name, artist);
+        setTrackInput('');
+        setSearched(false);
+        setSearchResults(false);
+    }
+
     return <div className="choose-mode-master-container">
         <div className="search-area">
             <input type="text"
@@ -59,11 +66,14 @@ function ChooseMode(props) {
             <button onClick={() => searchForTrack()} className="search-area-button">Search</button>
             {searched ? <div className="search-results" style={searchResults ? {textAlign: 'left'} : {textAlign: 'center'}} >
                 {searchResults ? <div>{searchResults.trackIDs.map((trackID, index) => {
-                    return <div key={index} className='track-result'>
-                        <img src={searchResults.images[index]} />
+                    let trackImg = searchResults.images[index];
+                    let trackName = searchResults.name[index];
+                    let trackArtist = searchResults.artists[index];
+                    return <div key={index} className='track-result' onClick={() => addTrack(trackID, trackImg, trackName, trackArtist)}>
+                        <img src={trackImg} />
                         <span className="track-desc">
-                            <h4>{searchResults.name[index].substring(0,40)}</h4>
-                            <p>{searchResults.artists[index]}</p>
+                            <h4>{trackName.substring(0,40)}</h4>
+                            <p>{trackArtist}</p>
                         </span>
                         <span className="add-track">
                             Add+
