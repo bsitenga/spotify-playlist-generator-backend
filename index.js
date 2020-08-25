@@ -81,10 +81,13 @@ app.post('/trackdata', jsonParser, (req, res) => {
 app.post('/recommendations', jsonParser, (req, res) => {
   let recObject = req.body.recObject;
   let trackArray = recObject.tracks;
+  let numTracks = trackArray.length;
   let trackURIs = [];
 
   //for loop
-
+  for (let i = 0; i < numTracks; i++) {
+    trackURIs[i] = trackArray[i].album.uri;
+  }
   //send data
   res.send(trackURIs);
 })
