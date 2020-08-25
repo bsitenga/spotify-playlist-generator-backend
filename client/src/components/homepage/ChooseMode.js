@@ -57,11 +57,12 @@ function ChooseMode(props) {
                 onKeyDown={e => handleEnter(e.key)}
                 onChange={e => setTrackInput(e.target.value)}></input>
             <button onClick={() => searchForTrack()} className="search-area-button">Search</button>
-            {searched ? <div className="search-results">
+            {searched ? <div className="search-results" style={searchResults ? {textAlign: 'left'} : {textAlign: 'center'}} >
                 {searchResults ? <div>{searchResults.trackIDs.map((trackID, index) => {
                     return <div key={index} className='track-result'>
-                        <span>
-                            <h4>{searchResults.name[index]}</h4>
+                        <img src={searchResults.images[index]} />
+                        <span className="track-desc">
+                            <h4>{searchResults.name[index].substring(0,40)}</h4>
                             <p>{searchResults.artists[index]}</p>
                         </span>
                         <span className="add-track">
@@ -70,7 +71,7 @@ function ChooseMode(props) {
                     </div>
                 })}</div>
                     :
-                    <Spinner style={{ color: '#1db954', margin: '2vh 0 2vh' }} animation="border" role="status"></Spinner>}
+                    <Spinner style={{ color: '#1db954', margin: '2vh auto 2vh' }} animation="border" role="status"></Spinner>}
             </div> : ''}
             <div className="added-results">
                 test

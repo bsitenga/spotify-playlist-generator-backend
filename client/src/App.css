@@ -184,6 +184,7 @@ white: F2F2F2
 
 .search-area {
     margin-top: 7vh;
+    text-align: center;
 }
 
 .track-search {
@@ -208,4 +209,52 @@ white: F2F2F2
     background-color: #fff;
     left: 34.66%;
     width: 30.7vw;
+}
+
+.search-results img {
+    display: inline-block;
+    margin-left: .5vw;
+    margin-right: .5vw;
+    width: 3vw;
+    vertical-align: top
+}
+
+.track-result {
+    padding-top: 1vw;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.track-result:hover {
+    cursor: pointer;
+    background-color: #c1c1c1;
+}
+
+.track-result span {
+    display: inline-block;
+}
+
+.track-result .track-desc {
+    display: inline-block;
+}
+
+.track-result h4 {
+    font-size: 1.2vw;
+    margin-bottom: .2vh;
+}
+
+.track-result p {
+    font-size: .9vw;
+}
+
+.track-result .add-track {
+    float: right;
+    vertical-align: middle;
+    margin-top: 1vh;
+    margin-right: 1vw;
+    display: none;
+    color: #888;
+}
+
+.track-result:hover .add-track {
+    display: inline-block;
 }
