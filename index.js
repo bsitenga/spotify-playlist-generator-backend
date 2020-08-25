@@ -42,8 +42,10 @@ app.post('/search', jsonParser, (req, res) => {
 });
 
 // TODO: find average features from all given tracks within audio_features array
+// Link to example object: https://developer.spotify.com/console/get-audio-features-several-tracks/?ids=4JpKVNYnVcJ8tuMKjAj50A,2NRANZE9UCmPAS5XVbXL40,24JygzOLM0EmRQeGtFcIcG
 app.post('/trackdata', jsonParser, (req, res) => {
-  let featureArray = req.body.trackObjects.audio_features;
+  let trackObject = req.body.trackObject;
+  let featureArray = trackObject.audio_features;
   let averageDanceability;
   let averageEnergy;
   let averageInstrumentalness;
@@ -51,7 +53,26 @@ app.post('/trackdata', jsonParser, (req, res) => {
   let averageLiveness;
   let averageValence;
 
+  //for loop
 
+  //fill in data
+  const data = {
+
+  }
+  res.send(data);
+})
+
+//TODO: Send back all trackURIs
+//Link to sample object: https://developer.spotify.com/console/get-recommendations/?limit=&market=US&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=&seed_tracks=0c6xIDDpzE81m2q797ordA&min_acousticness=&max_acousticness=&target_acousticness=&min_danceability=&max_danceability=&target_danceability=&min_duration_ms=&max_duration_ms=&target_duration_ms=&min_energy=0.4&max_energy=&target_energy=&min_instrumentalness=&max_instrumentalness=&target_instrumentalness=&min_key=&max_key=&target_key=&min_liveness=&max_liveness=&target_liveness=&min_loudness=&max_loudness=&target_loudness=&min_mode=&max_mode=&target_mode=&min_popularity=50&max_popularity=&target_popularity=&min_speechiness=&max_speechiness=&target_speechiness=&min_tempo=&max_tempo=&target_tempo=&min_time_signature=&max_time_signature=&target_time_signature=&min_valence=&max_valence=&target_valence=
+app.post('/recommendations', jsonParser, (req, res) => {
+  let recObject = req.body.recObject;
+  let trackArray = recObject.tracks;
+  let trackURIs = [];
+
+  //for loop
+
+  //send data
+  res.send(trackURIs);
 })
 
 // The "catchall" handler: for any request that doesn't
