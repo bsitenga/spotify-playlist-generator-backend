@@ -27,6 +27,7 @@ function ChooseMode(props) {
                 })
                     .catch(function (error) {
                         console.log('internal search error', error)
+                        setSearched(false);
                     })
             })
             .then(function (response) {
@@ -35,6 +36,7 @@ function ChooseMode(props) {
             })
             .catch(function (error) {
                 console.log('search error', error.response);
+                setSearched(false);
             })
     }
 
@@ -48,8 +50,10 @@ function ChooseMode(props) {
         }
     }
 
-    const addTrack = (track, image, name, artist) => {
-        console.log(track, image, name, artist);
+    const addTrack = (trackID, image, name, artist) => {
+        let trackArray = tracks;
+        trackArray.push({ trackID: trackID, image: image, name: name, artist: artist });
+        setTracks(trackArray);
         setTrackInput('');
         setSearched(false);
         setSearchResults(false);
@@ -64,7 +68,7 @@ function ChooseMode(props) {
                 onKeyDown={e => handleEnter(e.key)}
                 onChange={e => setTrackInput(e.target.value)}></input>
             <button onClick={() => searchForTrack()} className="search-area-button">Search</button>
-            {searched ? <div className="search-results" style={searchResults ? {textAlign: 'left'} : {textAlign: 'center'}} >
+            {searched ? <div className="search-results" style={searchResults ? { textAlign: 'left' } : { textAlign: 'center' }} >
                 {searchResults ? <div>{searchResults.trackIDs.map((trackID, index) => {
                     let trackImg = searchResults.images[index];
                     let trackName = searchResults.name[index];
@@ -72,7 +76,7 @@ function ChooseMode(props) {
                     return <div key={index} className='track-result' onClick={() => addTrack(trackID, trackImg, trackName, trackArtist)}>
                         <img src={trackImg} />
                         <span className="track-desc">
-                            <h4>{trackName.substring(0,40)}</h4>
+                            <h4>{trackName.substring(0, 40)}</h4>
                             <p>{trackArtist}</p>
                         </span>
                         <span className="add-track">
@@ -84,8 +88,14 @@ function ChooseMode(props) {
                     <Spinner style={{ color: '#1db954', margin: '2vh auto 2vh' }} animation="border" role="status"></Spinner>}
             </div> : ''}
             <div className="added-results">
-                test
+                {tracks.map((item, index) => {
+                    return <div key={index}>{item.name}</div>
+                })}
             </div>
+            <div className="set-filters">
+                Set Filters
+            </div>
+            <button>Generate</button>
         </div>
     </div>
 }
