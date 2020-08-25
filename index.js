@@ -41,6 +41,19 @@ app.post('/search', jsonParser, (req, res) => {
   res.send(data);
 });
 
+// TODO: find average features from all given tracks within audio_features array
+app.post('/trackdata', jsonParser, (req, res) => {
+  let featureArray = req.body.trackObjects.audio_features;
+  let averageDanceability;
+  let averageEnergy;
+  let averageInstrumentalness;
+  let averageAcousticness;
+  let averageLiveness;
+  let averageValence;
+
+
+})
+
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get('*', (req, res) => {
