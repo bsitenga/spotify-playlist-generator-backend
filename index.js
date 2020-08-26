@@ -46,18 +46,32 @@ app.post('/search', jsonParser, (req, res) => {
 app.post('/trackdata', jsonParser, (req, res) => {
   let trackObject = req.body.trackObject;
   let featureArray = trackObject.audio_features;
-  let averageDanceability;
-  let averageEnergy;
-  let averageInstrumentalness;
-  let averageAcousticness;
-  let averageLiveness;
-  let averageValence;
+  let numTracks = featureArray.length;
+  let averageDanceability = 0;
+  let averageEnergy = 0;
+  let averageInstrumentalness = 0;
+  let averageAcousticness = 0;
+  let averageLiveness = 0;
+  let averageValence = 0;
 
-  //for loop
+  //for loop to gather attributes from each trackObject
+  for (let i = 0; i < numTracks; i++) {
+    averageDanceability += featureArray[i].danceability;
+    averageEnergy += featureArray[i].energy;
+    averageInstrumentalness += featureArray[i].instrumentalness;
+    averageAcousticness += featureArray[i].acousticness;
+    averageLiveness += featureArray[i].liveness;
+    averageValence += featureArray[i].valence;
+  }
 
   //fill in data
   const data = {
-
+    averageDanceability: (averageDanceability / numTracks),
+    averageEnergy: (averageEnergy / numTracks),
+    averageInstrumentalness: (averageInstrumentalness / numTracks),
+    averageAcousticness: (averageAcousticness / numTracks),
+    averageLiveness: (averageLiveness / numTracks),
+    averageValence: (averageValence / numTracks)
   }
   res.send(data);
 })
@@ -67,10 +81,13 @@ app.post('/trackdata', jsonParser, (req, res) => {
 app.post('/recommendations', jsonParser, (req, res) => {
   let recObject = req.body.recObject;
   let trackArray = recObject.tracks;
+  let numTracks = trackArray.length;
   let trackURIs = [];
 
   //for loop
-
+  for (let i = 0; i < numTracks; i++) {
+    trackURIs[i] = trackArray[i].album.uri;
+  }
   //send data
   res.send(trackURIs);
 })
