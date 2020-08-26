@@ -88,8 +88,18 @@ function ChooseMode(props) {
                     <Spinner style={{ color: '#1db954', margin: '2vh auto 2vh' }} animation="border" role="status"></Spinner>}
             </div> : ''}
             <div className="added-results">
+                <h5>Added Tracks</h5>
                 {tracks.map((item, index) => {
-                    return <div key={index}>{item.name}</div>
+                    return <div key={index} className='added-track'>
+                        <img src={item.image} />
+                        <span className="added-track-desc">
+                            <h4>{item.name.substring(0, 40)}</h4>
+                            <p>{item.artist}</p>
+                        </span>
+                        <audio controls>
+                            <source src="https://p.scdn.co/mp3-preview/baea5e2b5a7315322edb8fade9bb8deacc97b436?cid=774b29d4f13844c495f206cafdad9c86"></source>
+                        </audio>
+                    </div>
                 })}
             </div>
             <div className="set-filters">

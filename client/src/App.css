@@ -258,3 +258,34 @@ white: F2F2F2
 .track-result:hover .add-track {
     display: inline-block;
 }
+
+.added-results {
+    margin-top: 2vh;
+}
+
+.added-track {
+    width: 30vw;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.added-track img {
+    display: inline-block;
+    margin-left: .5vw;
+    margin-right: .5vw;
+    width: 3vw;
+    vertical-align: top
+}
+
+.added-track .added-track-desc {
+    display: inline-block;
+}
+
+.added-track h4 {
+    font-size: 1.2vw;
+    margin-bottom: .2vh;
+}
+
+.added-track p {
+    font-size: .9vw;
+}
