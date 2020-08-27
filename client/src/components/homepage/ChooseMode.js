@@ -8,6 +8,8 @@ function ChooseMode(props) {
     const [tracks, setTracks] = useState([]);
     const [searched, setSearched] = useState(false);
     const [searchResults, setSearchResults] = useState(false);
+    const [playButtons, setPlayButtons] = useState([]);
+    const [playIndices, setPlayIndices] = useState([]);
 
     const accessToken = props.accessToken;
 
@@ -54,9 +56,28 @@ function ChooseMode(props) {
         let trackArray = tracks;
         trackArray.push({ trackID: trackID, image: image, name: name, artist: artist });
         setTracks(trackArray);
+
+        let tempButtons = playButtons;
+        tempButtons.push(0);
+        setPlayButtons(tempButtons);
+
         setTrackInput('');
         setSearched(false);
         setSearchResults(false);
+    }
+
+    const playAudio = (index) => {
+        if (playButtons[index]) {
+            document.getElementById('player' + index).pause();
+            let tempButtons = playButtons;
+            tempButtons[index] = 0;
+            setPlayButtons(tempButtons);
+        } else {
+            document.getElementById('player' + index).play();
+            let tempButtons = playButtons;
+            tempButtons[index] = 1;
+            setPlayButtons(tempButtons);
+        }
     }
 
     return <div className="choose-mode-master-container">
@@ -96,9 +117,8 @@ function ChooseMode(props) {
                             <h4>{item.name.substring(0, 40)}</h4>
                             <p>{item.artist}</p>
                         </span>
-                        <audio controls>
-                            <source src="https://p.scdn.co/mp3-preview/baea5e2b5a7315322edb8fade9bb8deacc97b436?cid=774b29d4f13844c495f206cafdad9c86"></source>
-                        </audio>
+                        <audio id={"player" + index} src="https://p.scdn.co/mp3-preview/baea5e2b5a7315322edb8fade9bb8deacc97b436?cid=774b29d4f13844c495f206cafdad9c86" ></audio>
+                        <button onClick={() => playAudio(index)} >Play/Pause</button>
                     </div>
                 })}
             </div>

@@ -289,3 +289,7 @@ white: F2F2F2
 .added-track p {
     font-size: .9vw;
 }
+
+.added-track audio {
+    background-color: #f1f1f1;
+}
