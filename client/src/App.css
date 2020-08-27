@@ -293,3 +293,22 @@ white: F2F2F2
 .added-track audio {
     background-color: #f1f1f1;
 }
+
+.added-track .play-button {
+    font-size: .9vw;
+    vertical-align: top;
+    border: none;
+    background: none;
+    text-decoration: underline;
+    color: #888;
+    outline: none;
+    float: right;
+}
+
+.added-track .play-button:hover {
+    cursor: pointer;
+}
+
+.added-track .play-button:focus {
+    outline: none;
+}

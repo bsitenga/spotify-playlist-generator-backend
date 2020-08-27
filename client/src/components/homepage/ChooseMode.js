@@ -116,7 +116,7 @@ function ChooseMode(props) {
                     return <div key={index} className='added-track'>
                         <img src={item.image} />
                         <span className="added-track-desc">
-                            <h4>{item.name.substring(0, 35)}</h4>
+                            <h4>{item.name.substring(0, 32)}</h4>
                             <p>{item.artist}</p>
                         </span>
                         <audio id={"player" + index} src={item.preview} ></audio>
