@@ -22,6 +22,7 @@ app.post('/search', jsonParser, (req, res) => {
   let popularity = [];
   let name = [];
   let images = [];
+  let previews = [];
 
   // iterates through the search object and pushes href, artists, popularity, and name to its respective array
   for(let i=0;i<itemArray.length;i++){
@@ -30,13 +31,15 @@ app.post('/search', jsonParser, (req, res) => {
     popularity.push(itemArray[i].popularity)
     name.push(itemArray[i].name)
     images.push(itemArray[i].album.images[0].url)
+    previews.push(itemArray[i].preview_url)
   }
   const data = {
     trackIDs: trackIDs,
     artists: artists,
     popularity: popularity,
     name: name,
-    images: images
+    images: images,
+    previews: previews
   }
   res.send(data);
 });

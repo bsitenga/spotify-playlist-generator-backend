@@ -52,9 +52,10 @@ function ChooseMode(props) {
         }
     }
 
-    const addTrack = (trackID, image, name, artist) => {
+    const addTrack = (trackID, image, name, artist, preview) => {
+        console.log(preview);
         let trackArray = tracks;
-        trackArray.push({ trackID: trackID, image: image, name: name, artist: artist });
+        trackArray.push({ trackID: trackID, image: image, name: name, artist: artist, preview: preview });
         setTracks(trackArray);
 
         let tempButtons = playButtons;
@@ -94,7 +95,8 @@ function ChooseMode(props) {
                     let trackImg = searchResults.images[index];
                     let trackName = searchResults.name[index];
                     let trackArtist = searchResults.artists[index];
-                    return <div key={index} className='track-result' onClick={() => addTrack(trackID, trackImg, trackName, trackArtist)}>
+                    let preview = searchResults.previews[index];
+                    return <div key={index} className='track-result' onClick={() => addTrack(trackID, trackImg, trackName, trackArtist, preview)}>
                         <img src={trackImg} />
                         <span className="track-desc">
                             <h4>{trackName.substring(0, 40)}</h4>
@@ -114,11 +116,11 @@ function ChooseMode(props) {
                     return <div key={index} className='added-track'>
                         <img src={item.image} />
                         <span className="added-track-desc">
-                            <h4>{item.name.substring(0, 40)}</h4>
+                            <h4>{item.name.substring(0, 35)}</h4>
                             <p>{item.artist}</p>
                         </span>
-                        <audio id={"player" + index} src="https://p.scdn.co/mp3-preview/baea5e2b5a7315322edb8fade9bb8deacc97b436?cid=774b29d4f13844c495f206cafdad9c86" ></audio>
-                        <button onClick={() => playAudio(index)} >Play/Pause</button>
+                        <audio id={"player" + index} src={item.preview} ></audio>
+                        {item.preview ? <button className="play-button" onClick={() => playAudio(index)} >Play/Pause</button> : ""}
                     </div>
                 })}
             </div>
