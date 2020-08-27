@@ -9,7 +9,7 @@ function ChooseMode(props) {
     const [searched, setSearched] = useState(false);
     const [searchResults, setSearchResults] = useState(false);
     const [playButtons, setPlayButtons] = useState([]);
-    const [playIndices, setPlayIndices] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const accessToken = props.accessToken;
 
@@ -53,18 +53,24 @@ function ChooseMode(props) {
     }
 
     const addTrack = (trackID, image, name, artist, preview) => {
-        console.log(preview);
-        let trackArray = tracks;
-        trackArray.push({ trackID: trackID, image: image, name: name, artist: artist, preview: preview });
-        setTracks(trackArray);
+        if (tracks.length === 10) {
+            setErrorMessage("Reached track limit");
+            setTrackInput('');
+            setSearched(false);
+            setSearchResults(false);
+        } else {
+            let trackArray = tracks;
+            trackArray.push({ trackID: trackID, image: image, name: name, artist: artist, preview: preview });
+            setTracks(trackArray);
 
-        let tempButtons = playButtons;
-        tempButtons.push(0);
-        setPlayButtons(tempButtons);
+            let tempButtons = playButtons;
+            tempButtons.push(0);
+            setPlayButtons(tempButtons);
 
-        setTrackInput('');
-        setSearched(false);
-        setSearchResults(false);
+            setTrackInput('');
+            setSearched(false);
+            setSearchResults(false);
+        }
     }
 
     const playAudio = (index) => {
@@ -111,6 +117,7 @@ function ChooseMode(props) {
                     <Spinner style={{ color: '#1db954', margin: '2vh auto 2vh' }} animation="border" role="status"></Spinner>}
             </div> : ''}
             <div className="added-results">
+                <p>{errorMessage}</p>
                 <h5>Added Tracks</h5>
                 {tracks.map((item, index) => {
                     return <div key={index} className='added-track'>

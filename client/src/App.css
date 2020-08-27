@@ -260,7 +260,11 @@ white: F2F2F2
 }
 
 .added-results {
-    margin-top: 2vh;
+    margin-top: 3.5vh;
+}
+
+.added-results h5 {
+    margin-bottom: 3vh;
 }
 
 .added-track {
