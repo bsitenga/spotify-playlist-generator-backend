@@ -133,110 +133,116 @@ function ChooseMode(props) {
     }
 
     return <div className="choose-mode-master-container">
-        <div className="search-area">
-            <input type="text"
-                placeholder="Search for a track"
-                value={trackInput}
-                className="track-search"
-                onKeyDown={e => handleEnter(e.key)}
-                onChange={e => setTrackInput(e.target.value)}></input>
-            <button onClick={() => searchForTrack()} className="search-area-button">Search</button>
-            {searched ? <div className="search-results" style={searchResults ? { textAlign: 'left' } : { textAlign: 'center' }} >
-                {searchResults ? <div>{searchResults.trackIDs.map((trackID, index) => {
-                    let trackImg = searchResults.images[index];
-                    let trackName = searchResults.name[index];
-                    let trackArtist = searchResults.artists[index];
-                    let preview = searchResults.previews[index];
-                    return <div key={index} className='track-result' onClick={() => addTrack(trackID, trackImg, trackName, trackArtist, preview)}>
-                        <img src={trackImg} />
-                        <span className="track-desc">
-                            <h4>{trackName.substring(0, 40)}</h4>
-                            <p>{trackArtist}</p>
+
+        <div className="ungenerated-area">
+            {!finished ?
+                <div className="search-area">
+                    <input type="text"
+                        placeholder="Search for a track"
+                        value={trackInput}
+                        className="track-search"
+                        onKeyDown={e => handleEnter(e.key)}
+                        onChange={e => setTrackInput(e.target.value)}></input>
+                    <button onClick={() => searchForTrack()} className="search-area-button">Search</button>
+                    {searched ? <div className="search-results" style={searchResults ? { textAlign: 'left' } : { textAlign: 'center' }} >
+                        {searchResults ? <div>{searchResults.trackIDs.map((trackID, index) => {
+                            let trackImg = searchResults.images[index];
+                            let trackName = searchResults.name[index];
+                            let trackArtist = searchResults.artists[index];
+                            let preview = searchResults.previews[index];
+                            return <div key={index} className='track-result' onClick={() => addTrack(trackID, trackImg, trackName, trackArtist, preview)}>
+                                <img src={trackImg} />
+                                <span className="track-desc">
+                                    <h4>{trackName.substring(0, 40)}</h4>
+                                    <p>{trackArtist}</p>
+                                </span>
+                                <span className="add-track">
+                                    Add+
                         </span>
-                        <span className="add-track">
-                            Add+
-                        </span>
+                            </div>
+                        })}</div>
+                            :
+                            <Spinner style={{ color: '#1db954', margin: '2vh auto 2vh' }} animation="border" role="status"></Spinner>}
+                    </div> : ''}
+                    <div className="added-results">
+                        <p style={{ color: "#777" }}>{errorMessage}</p>
+                        <h5>Added Tracks</h5>
+                        <hr className="choose-divider"></hr>
+                        {tracks.map((item, index) => {
+                            return <div key={index} className='added-track'>
+                                <img src={item.image} />
+                                <span className="added-track-desc">
+                                    <h4>{item.name.substring(0, 32)}</h4>
+                                    <p>{item.artist}</p>
+                                </span>
+                                <audio id={"player" + index} src={item.preview} ></audio>
+                                {item.preview ? <button className="play-button" onClick={() => playAudio(index)} >Play/Pause</button> : ""}
+                            </div>
+                        })}
+                        {tracks[0] ? <button onClick={() => setFinished(true)}>Finished</button> : <p>Add a track!</p>}
                     </div>
-                })}</div>
-                    :
-                    <Spinner style={{ color: '#1db954', margin: '2vh auto 2vh' }} animation="border" role="status"></Spinner>}
-            </div> : ''}
-            <div className="added-results">
-                <p style={{ color: "#777" }}>{errorMessage}</p>
-                <h5>Added Tracks</h5>
-                <hr className="choose-divider"></hr>
-                {tracks.map((item, index) => {
-                    return <div key={index} className='added-track'>
-                        <img src={item.image} />
-                        <span className="added-track-desc">
-                            <h4>{item.name.substring(0, 32)}</h4>
-                            <p>{item.artist}</p>
-                        </span>
-                        <audio id={"player" + index} src={item.preview} ></audio>
-                        {item.preview ? <button className="play-button" onClick={() => playAudio(index)} >Play/Pause</button> : ""}
+                </div> : ""}
+            {finished ?
+                <div className="set-filters">
+                    <h3>Set Filters</h3>
+                    <hr className="choose-divider"></hr>
+                    <div className="slider-master">
+                        <label for="acousticness-slider">Acousticness - Average Value: {finished ? songVals[0].toString().substring(1, 4) : ""}</label>
+                        <input className="acousticness-slider slider" type="range" min="0" max="100" value={acousticness * 100} onChange={(e) => setAcousticness(e.target.value / 100)}></input>
+                        <div className="bound-values">
+                            <span className="left-val">0</span>
+                            <span className="middle-val">{acousticness.toString().substring(1, 4)}{acousticness === 0 ? 0 : ""}{acousticness === 1 ? 1 : ""}</span>
+                            <span className="right-val">1</span>
+                        </div>
                     </div>
-                })}
-                {tracks[0] ? <button onClick={() => setFinished(true)}>Finished</button> : <p>Add a track!</p>}
-            </div>
-            <div className="set-filters">
-                <h3>Set Filters</h3>
-                <hr className="choose-divider"></hr>
-                <div className="slider-master">
-                    <label for="acousticness-slider">Acousticness - Average Value: {finished ? songVals[0].toString().substring(1, 4) : ""}</label>
-                    <input className="acousticness-slider slider" type="range" min="0" max="100" value={acousticness * 100} onChange={(e) => setAcousticness(e.target.value / 100)}></input>
-                    <div className="bound-values">
-                        <span className="left-val">0</span>
-                        <span className="middle-val">{acousticness.toString().substring(1, 4)}{acousticness === 0 ? 0 : ""}{acousticness === 1 ? 1 : ""}</span>
-                        <span className="right-val">1</span>
+                    <div className="slider-master">
+                        <label for="danceability-slider">Danceability - Average Value: {finished ? songVals[1].toString().substring(1, 4) : ""}</label>
+                        <input className="danceability-slider slider" type="range" min="0" max="100" value={danceability * 100} onChange={(e) => setDanceability(e.target.value / 100)}></input>
+                        <div className="bound-values">
+                            <span className="left-val">0</span>
+                            <span className="middle-val">{danceability.toString().substring(1, 4)}{danceability === 0 ? 0 : ""}{danceability === 1 ? 1 : ""}</span>
+                            <span className="right-val">1</span>
+                        </div>
                     </div>
+                    <div className="slider-master">
+                        <label for="energy-slider">Energy - Average Value: {finished ? songVals[2].toString().substring(1, 4) : ""}</label>
+                        <input className="energy-slider slider" type="range" min="0" max="100" value={energy * 100} onChange={(e) => setEnergy(e.target.value / 100)}></input>
+                        <div className="bound-values">
+                            <span className="left-val">0</span>
+                            <span className="middle-val">{energy.toString().substring(1, 4)}{energy === 0 ? 0 : ""}{energy === 1 ? 1 : ""}</span>
+                            <span className="right-val">1</span>
+                        </div>
+                    </div>
+                    <div className="slider-master">
+                        <label for="instrumentalness-slider">Instrumentalness - Average Value: {finished ? songVals[3].toString().substring(1, 4) : ""}</label>
+                        <input className="instrumentalness-slider slider" type="range" min="0" max="100" value={instrumentalness * 100} onChange={(e) => setInstrumentalness(e.target.value / 100)}></input>
+                        <div className="bound-values">
+                            <span className="left-val">0</span>
+                            <span className="middle-val">{instrumentalness.toString().substring(1, 4)}{instrumentalness === 0 ? 0 : ""}{instrumentalness === 1 ? 1 : ""}</span>
+                            <span className="right-val">1</span>
+                        </div>
+                    </div>
+                    <div className="slider-master">
+                        <label for="liveness-slider">Liveness - Average Value: {finished ? songVals[4].toString().substring(1, 4) : ""}</label>
+                        <input className="liveness-slider slider" type="range" min="0" max="100" value={liveness * 100} onChange={(e) => setLiveness(e.target.value / 100)}></input>
+                        <div className="bound-values">
+                            <span className="left-val">0</span>
+                            <span className="middle-val">{liveness.toString().substring(1, 4)}{liveness === 0 ? 0 : ""}{liveness === 1 ? 1 : ""}</span>
+                            <span className="right-val">1</span>
+                        </div>
+                    </div>
+                    <div className="slider-master">
+                        <label for="valence-slider">Valence - Average Value: {finished ? songVals[5].toString().substring(1, 4) : ""}</label>
+                        <input className="valence-slider slider" type="range" min="0" max="100" value={valence * 100} onChange={(e) => setValence(e.target.value / 100)}></input>
+                        <div className="bound-values">
+                            <span className="left-val">0</span>
+                            <span className="middle-val">{valence.toString().substring(1, 4)}{valence === 0 ? 0 : ""}{valence === 1 ? 1 : ""}</span>
+                            <span className="right-val">1</span>
+                        </div>
+                    </div>
+                    <button>Generate</button>
                 </div>
-                <div className="slider-master">
-                    <label for="danceability-slider">Danceability - Average Value: {finished ? songVals[1].toString().substring(1, 4) : ""}</label>
-                    <input className="danceability-slider slider" type="range" min="0" max="100" value={danceability * 100} onChange={(e) => setDanceability(e.target.value / 100)}></input>
-                    <div className="bound-values">
-                        <span className="left-val">0</span>
-                        <span className="middle-val">{danceability.toString().substring(1, 4)}{danceability === 0 ? 0 : ""}{danceability === 1 ? 1 : ""}</span>
-                        <span className="right-val">1</span>
-                    </div>
-                </div>
-                <div className="slider-master">
-                    <label for="energy-slider">Energy - Average Value: {finished ? songVals[2].toString().substring(1, 4) : ""}</label>
-                    <input className="energy-slider slider" type="range" min="0" max="100" value={energy * 100} onChange={(e) => setEnergy(e.target.value / 100)}></input>
-                    <div className="bound-values">
-                        <span className="left-val">0</span>
-                        <span className="middle-val">{energy.toString().substring(1, 4)}{energy === 0 ? 0 : ""}{energy === 1 ? 1 : ""}</span>
-                        <span className="right-val">1</span>
-                    </div>
-                </div>
-                <div className="slider-master">
-                    <label for="instrumentalness-slider">Instrumentalness - Average Value: {finished ? songVals[3].toString().substring(1, 4) : ""}</label>
-                    <input className="instrumentalness-slider slider" type="range" min="0" max="100" value={instrumentalness * 100} onChange={(e) => setInstrumentalness(e.target.value / 100)}></input>
-                    <div className="bound-values">
-                        <span className="left-val">0</span>
-                        <span className="middle-val">{instrumentalness.toString().substring(1, 4)}{instrumentalness === 0 ? 0 : ""}{instrumentalness === 1 ? 1 : ""}</span>
-                        <span className="right-val">1</span>
-                    </div>
-                </div>
-                <div className="slider-master">
-                    <label for="liveness-slider">Liveness - Average Value: {finished ? songVals[4].toString().substring(1, 4) : ""}</label>
-                    <input className="liveness-slider slider" type="range" min="0" max="100" value={liveness * 100} onChange={(e) => setLiveness(e.target.value / 100)}></input>
-                    <div className="bound-values">
-                        <span className="left-val">0</span>
-                        <span className="middle-val">{liveness.toString().substring(1, 4)}{liveness === 0 ? 0 : ""}{liveness === 1 ? 1 : ""}</span>
-                        <span className="right-val">1</span>
-                    </div>
-                </div>
-                <div className="slider-master">
-                    <label for="valence-slider">Valence - Average Value: {finished ? songVals[5].toString().substring(1, 4) : ""}</label>
-                    <input className="valence-slider slider" type="range" min="0" max="100" value={valence * 100} onChange={(e) => setValence(e.target.value / 100)}></input>
-                    <div className="bound-values">
-                        <span className="left-val">0</span>
-                        <span className="middle-val">{valence.toString().substring(1, 4)}{valence === 0 ? 0 : ""}{valence === 1 ? 1 : ""}</span>
-                        <span className="right-val">1</span>
-                    </div>
-                </div>
-            </div>
-            <button>Generate</button>
+                : ""}
         </div>
     </div>
 }
