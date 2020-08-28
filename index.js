@@ -4,6 +4,9 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const app = express();
 
+app.use(bodyParser.json({limit: '50mb'}))
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+
 let jsonParser = bodyParser.json();
 
 app.use(cors({origin: true, credentials: true}));
@@ -83,12 +86,12 @@ app.post('/trackdata', jsonParser, (req, res) => {
 //Link to sample object: https://developer.spotify.com/console/get-recommendations/?limit=&market=US&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=&seed_tracks=0c6xIDDpzE81m2q797ordA&min_acousticness=&max_acousticness=&target_acousticness=&min_danceability=&max_danceability=&target_danceability=&min_duration_ms=&max_duration_ms=&target_duration_ms=&min_energy=0.4&max_energy=&target_energy=&min_instrumentalness=&max_instrumentalness=&target_instrumentalness=&min_key=&max_key=&target_key=&min_liveness=&max_liveness=&target_liveness=&min_loudness=&max_loudness=&target_loudness=&min_mode=&max_mode=&target_mode=&min_popularity=50&max_popularity=&target_popularity=&min_speechiness=&max_speechiness=&target_speechiness=&min_tempo=&max_tempo=&target_tempo=&min_time_signature=&max_time_signature=&target_time_signature=&min_valence=&max_valence=&target_valence=
 app.post('/recommendations', jsonParser, (req, res) => {
   let recObject = req.body.recObject;
+  let numSongs = req.body.numSongs;
   let trackArray = recObject.tracks;
-  let numTracks = trackArray.length;
   let trackURIs = [];
 
   //for loop
-  for (let i = 0; i < numTracks; i++) {
+  for (let i = 0; i < numSongs; i++) {
     trackURIs[i] = trackArray[i].album.uri;
   }
   //send data

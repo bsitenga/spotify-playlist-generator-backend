@@ -14,7 +14,8 @@ function HeroAuthenticated() {
 		'?response_type=code' +
 		'&client_id=' +
 		clientID +
-		'&redirect_uri=http://localhost:3000/authenticated';
+    '&redirect_uri=http://localhost:3000/authenticated' +
+    '&scope=playlist-modify-public';
 
   useEffect(() => {
     let code = getParams(window.location.href).code;

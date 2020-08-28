@@ -12,7 +12,8 @@ function Hero() {
 		'?response_type=code' +
 		'&client_id=' +
 		clientID +
-		'&redirect_uri=http://localhost:3000/authenticated';
+		'&redirect_uri=http://localhost:3000/authenticated' + 
+		'&scope=playlist-modify-public';;
 
 	return (
 		<div className="hero-master-container">
