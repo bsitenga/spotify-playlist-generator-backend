@@ -17,6 +17,7 @@ function ChooseMode(props) {
     const [instrumentalness, setInstrumentalness] = useState(.5);
     const [liveness, setLiveness] = useState(.5);
     const [valence, setValence] = useState(.5);
+    const [finished, setFinished] = useState(false);
 
     const accessToken = props.accessToken;
 
@@ -103,14 +104,16 @@ function ChooseMode(props) {
                 .then(function (response) {
                     let averages = response.data;
                     tempVals[0] = averages.averageAcousticness;
-
-                    console.log(songVals);
+                    tempVals[1] = averages.averageDanceability;
+                    tempVals[2] = averages.averageEnergy;
+                    tempVals[3] = averages.averageInstrumentalness;
+                    tempVals[4] = averages.averageLiveness;
+                    tempVals[5] = averages.averageValence;
                 })
                 .catch(function (error) {
                     console.log('add error', error.response);
                     setSearched(false);
                 })
-                console.log(tempVals);
             setSongVals(tempVals);
         }
     }
@@ -173,13 +176,13 @@ function ChooseMode(props) {
                         {item.preview ? <button className="play-button" onClick={() => playAudio(index)} >Play/Pause</button> : ""}
                     </div>
                 })}
-                {tracks[0] ? "" : <p>Add a track!</p>}
+                {tracks[0] ? <button onClick={() => setFinished(true)}>Finished</button> : <p>Add a track!</p>}
             </div>
             <div className="set-filters">
                 <h3>Set Filters</h3>
                 <hr className="choose-divider"></hr>
                 <div className="slider-master">
-                    <label for="acousticness-slider">Acousticness - Average Value: {songVals[0].toString().substring(1,4)}</label>
+                    <label for="acousticness-slider">Acousticness - Average Value: {finished ? songVals[0].toString().substring(1, 4) : ""}</label>
                     <input className="acousticness-slider slider" type="range" min="0" max="100" value={acousticness * 100} onChange={(e) => setAcousticness(e.target.value / 100)}></input>
                     <div className="bound-values">
                         <span className="left-val">0</span>
@@ -188,7 +191,7 @@ function ChooseMode(props) {
                     </div>
                 </div>
                 <div className="slider-master">
-                    <label for="danceability-slider">Danceability - Average Value: {songVals[1]}</label>
+                    <label for="danceability-slider">Danceability - Average Value: {finished ? songVals[1].toString().substring(1, 4) : ""}</label>
                     <input className="danceability-slider slider" type="range" min="0" max="100" value={danceability * 100} onChange={(e) => setDanceability(e.target.value / 100)}></input>
                     <div className="bound-values">
                         <span className="left-val">0</span>
@@ -197,7 +200,7 @@ function ChooseMode(props) {
                     </div>
                 </div>
                 <div className="slider-master">
-                    <label for="energy-slider">Energy - Average Value: {songVals[2]}</label>
+                    <label for="energy-slider">Energy - Average Value: {finished ? songVals[2].toString().substring(1, 4) : ""}</label>
                     <input className="energy-slider slider" type="range" min="0" max="100" value={energy * 100} onChange={(e) => setEnergy(e.target.value / 100)}></input>
                     <div className="bound-values">
                         <span className="left-val">0</span>
@@ -206,7 +209,7 @@ function ChooseMode(props) {
                     </div>
                 </div>
                 <div className="slider-master">
-                    <label for="instrumentalness-slider">Instrumentalness - Average Value: {songVals[3]}</label>
+                    <label for="instrumentalness-slider">Instrumentalness - Average Value: {finished ? songVals[3].toString().substring(1, 4) : ""}</label>
                     <input className="instrumentalness-slider slider" type="range" min="0" max="100" value={instrumentalness * 100} onChange={(e) => setInstrumentalness(e.target.value / 100)}></input>
                     <div className="bound-values">
                         <span className="left-val">0</span>
@@ -215,7 +218,7 @@ function ChooseMode(props) {
                     </div>
                 </div>
                 <div className="slider-master">
-                    <label for="liveness-slider">Liveness - Average Value: {songVals[4]}</label>
+                    <label for="liveness-slider">Liveness - Average Value: {finished ? songVals[4].toString().substring(1, 4) : ""}</label>
                     <input className="liveness-slider slider" type="range" min="0" max="100" value={liveness * 100} onChange={(e) => setLiveness(e.target.value / 100)}></input>
                     <div className="bound-values">
                         <span className="left-val">0</span>
@@ -224,7 +227,7 @@ function ChooseMode(props) {
                     </div>
                 </div>
                 <div className="slider-master">
-                    <label for="valence-slider">Valence - Average Value: {songVals[5]}</label>
+                    <label for="valence-slider">Valence - Average Value: {finished ? songVals[5].toString().substring(1, 4) : ""}</label>
                     <input className="valence-slider slider" type="range" min="0" max="100" value={valence * 100} onChange={(e) => setValence(e.target.value / 100)}></input>
                     <div className="bound-values">
                         <span className="left-val">0</span>
