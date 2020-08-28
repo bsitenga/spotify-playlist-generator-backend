@@ -139,16 +139,12 @@ function ChooseMode(props) {
                 <h3>Set Filters</h3>
                 <hr className="choose-divider"></hr>
                 <div className="slider-master">
-                    <div className="slider-container">
-                        <label for="acousticness-slider">Acousticness</label>
-                        <input className="acousticness-slider slider" type="range" min="0" max="100" value={acousticness * 100} onChange={(e) => setAcousticness(e.target.value / 100)}></input>
-                        <div className="bound-values">
-                            <span className="left-val">0</span>
-                            <span className="right-val">1</span>
-                        </div>
-                    </div>
-                    <div className="song-val">
-                        Average Value: {songVals[0]}
+                    <label for="acousticness-slider">Acousticness - Average Value: {songVals[0]}</label>
+                    <input className="acousticness-slider slider" type="range" min="0" max="100" value={acousticness * 100} onChange={(e) => setAcousticness(e.target.value / 100)}></input>
+                    <div className="bound-values">
+                        <span className="left-val">0</span>
+                        <span className="middle-val">{acousticness.toString().substring(1, 4)}{acousticness === 0 ? 0 : ""}{acousticness === 1 ? 1 : ""}</span>
+                        <span className="right-val">1</span>
                     </div>
                 </div>
             </div>
