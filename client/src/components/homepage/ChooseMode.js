@@ -59,7 +59,7 @@ function ChooseMode(props) {
         }
     }
 
-    const addTrack = (trackID, image, name, artist, preview) => {
+    const addTrack = async (trackID, image, name, artist, preview) => {
         if (tracks.length === 10) {
             setErrorMessage("Reached track limit");
             setTrackInput('');
@@ -77,6 +77,41 @@ function ChooseMode(props) {
             setTrackInput('');
             setSearched(false);
             setSearchResults(false);
+
+            let trackIDs = "";
+            trackIDs += tracks[0].trackID.substring(34, 100);
+            let tempVals = songVals;
+            for (let i = 1; i < tracks.length; i++) {
+                trackIDs += '%2C';
+                trackIDs += tracks[i].trackID.substring(34, 100);
+            }
+            await axios({
+                method: 'get',
+                url: 'https://api.spotify.com/v1/audio-features?ids=' + trackIDs,
+                headers: {
+                    Authorization: "Bearer " + accessToken
+                }
+            })
+                .then(function (response) {
+                    return axios.post('http://localhost:5000/trackdata', {
+                        trackObject: response.data
+                    })
+                        .catch(function (error) {
+                            console.log('internal search error', error)
+                        })
+                })
+                .then(function (response) {
+                    let averages = response.data;
+                    tempVals[0] = averages.averageAcousticness;
+
+                    console.log(songVals);
+                })
+                .catch(function (error) {
+                    console.log('add error', error.response);
+                    setSearched(false);
+                })
+                console.log(tempVals);
+            setSongVals(tempVals);
         }
     }
 
@@ -127,7 +162,6 @@ function ChooseMode(props) {
                 <p style={{ color: "#777" }}>{errorMessage}</p>
                 <h5>Added Tracks</h5>
                 <hr className="choose-divider"></hr>
-                {tracks[0] ? "" : <p>Add a track!</p>}
                 {tracks.map((item, index) => {
                     return <div key={index} className='added-track'>
                         <img src={item.image} />
@@ -139,12 +173,13 @@ function ChooseMode(props) {
                         {item.preview ? <button className="play-button" onClick={() => playAudio(index)} >Play/Pause</button> : ""}
                     </div>
                 })}
+                {tracks[0] ? "" : <p>Add a track!</p>}
             </div>
             <div className="set-filters">
                 <h3>Set Filters</h3>
                 <hr className="choose-divider"></hr>
                 <div className="slider-master">
-                    <label for="acousticness-slider">Acousticness - Average Value: {songVals[0]}</label>
+                    <label for="acousticness-slider">Acousticness - Average Value: {songVals[0].toString().substring(1,4)}</label>
                     <input className="acousticness-slider slider" type="range" min="0" max="100" value={acousticness * 100} onChange={(e) => setAcousticness(e.target.value / 100)}></input>
                     <div className="bound-values">
                         <span className="left-val">0</span>
