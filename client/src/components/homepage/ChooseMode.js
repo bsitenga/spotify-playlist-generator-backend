@@ -132,8 +132,46 @@ function ChooseMode(props) {
         }
     }
 
-    return <div className="choose-mode-master-container">
+    const generatePlaylist = async () => {
+        let seedTracks = "";
+        seedTracks += tracks[0].trackID.substring(34, 100);
+        for (let i = 1; i < tracks.length; i++) {
+            seedTracks+= '%2C';
+            seedTracks+= tracks[i].trackID.substring(34, 100);
+        }
+        let playlistString = "https://api.spotify.com/v1/recommendations?limit=100&market=US" +
+            "&seed_tracks=" + seedTracks + 
+            "&target_acousticness=" + acousticness.toString().substring(1, 4) + 
+            "&target_danceability=" + danceability.toString().substring(1, 4) + 
+            "&target_energy=" + energy.toString().substring(1, 4) + 
+            "&target_instrumentalness=" + instrumentalness.toString().substring(1, 4) + 
+            "&target_liveness=" + liveness.toString().substring(1, 4) + 
+            "&min_popularity=50" + 
+            "&target_valence=" + valence.toString().substring(1, 4);
+        axios({
+            method: 'get',
+            url: playlistString,
+            headers: {
+                Authorization: "Bearer " + accessToken
+            }
+        })
+            .then(function (response) {
+                return axios.post('http://localhost:5000/recommendations', {
+                    recObject: response.data
+                })
+                    .catch(function (error) {
+                        console.log('internal recommendation error', error)
+                    })
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log('recommendation error', error.response);
+            })
+    }
 
+    return <div className="choose-mode-master-container">
         <div className="ungenerated-area">
             {!finished ?
                 <div className="search-area">
@@ -240,7 +278,7 @@ function ChooseMode(props) {
                             <span className="right-val">1</span>
                         </div>
                     </div>
-                    <button>Generate</button>
+                    <button onClick={() => generatePlaylist()}>Generate</button>
                 </div>
                 : ""}
         </div>
