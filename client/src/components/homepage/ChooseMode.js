@@ -134,6 +134,14 @@ function ChooseMode(props) {
         }
     }
 
+    const convertFeature = (feature) => {
+        let str = feature.toString();
+        if (str.length === 1 || str.length === 2) {
+            return feature;
+        }
+        return feature.toString().substring(1, 4);
+    }
+
     const generatePlaylist = async () => {
         let seedTracks = "";
         seedTracks += tracks[0].trackID.substring(34, 100);
@@ -141,15 +149,21 @@ function ChooseMode(props) {
             seedTracks += '%2C';
             seedTracks += tracks[i].trackID.substring(34, 100);
         }
-        let playlistString = "https://api.spotify.com/v1/recommendations?limit=100&market=US" +
+        let tAcousticness = convertFeature(acousticness);
+        let tDanceabililty = convertFeature(danceability);
+        let tEnergy = convertFeature(energy);
+        let tInstrumentalness = convertFeature(instrumentalness);
+        let tLiveness = convertFeature(liveness);
+        let tValence = convertFeature(valence);
+        let playlistString = "https://api.spotify.com/v1/recommendations?limit=" + numSongs + "&market=US" +
             "&seed_tracks=" + seedTracks +
-            "&target_acousticness=" + acousticness.toString().substring(1, 4) +
-            "&target_danceability=" + danceability.toString().substring(1, 4) +
-            "&target_energy=" + energy.toString().substring(1, 4) +
-            "&target_instrumentalness=" + instrumentalness.toString().substring(1, 4) +
-            "&target_liveness=" + liveness.toString().substring(1, 4) +
+            "&target_acousticness=" + tAcousticness +
+            "&target_danceability=" + tDanceabililty +
+            "&target_energy=" + tEnergy +
+            "&target_instrumentalness=" + tInstrumentalness +
+            "&target_liveness=" + tLiveness +
             "&min_popularity=50" +
-            "&target_valence=" + valence.toString().substring(1, 4);
+            "&target_valence=" + tValence;
         axios({
             method: 'get',
             url: playlistString,
@@ -193,6 +207,7 @@ function ChooseMode(props) {
                         })
                             .then(function (response) {
                                 let playlistID = response.data.id;
+                                let playlistUrl = response.data.external_urls.spotify;
                                 let addUrl = 'https://api.spotify.com/v1/playlists/' + playlistID + '/tracks?uris=' + recString;
                                 axios({
                                     method: 'post',
@@ -203,9 +218,12 @@ function ChooseMode(props) {
                                         "Content-Type": "application/x-www-form-urlencoded"
                                     }
                                 })
-                                .catch(function(error) {
-                                    console.log('add item error', error);
-                                })
+                                    .then(function (response) {
+                                        console.log(playlistUrl);
+                                    })
+                                    .catch(function (error) {
+                                        console.log('add item error', error);
+                                    })
                             })
                             .catch(function (error) {
                                 console.log('create playlist error', error)
@@ -219,8 +237,8 @@ function ChooseMode(props) {
             .catch(function (error) {
                 console.log('recommendation error', error.response);
             })
-            .finally(function() {
-                console.log('success!');
+            .finally(function () {
+                console.log('finished');
             })
     }
 
