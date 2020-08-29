@@ -92,7 +92,7 @@ app.post('/recommendations', jsonParser, (req, res) => {
 
   //for loop
   for (let i = 0; i < numSongs; i++) {
-    trackURIs[i] = trackArray[i].album.uri;
+    trackURIs[i] = trackArray[i].uri;
   }
   //send data
   res.send(trackURIs);

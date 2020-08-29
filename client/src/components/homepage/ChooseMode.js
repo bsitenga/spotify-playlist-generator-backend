@@ -168,6 +168,11 @@ function ChooseMode(props) {
             })
             .then(function (response) {
                 let recArray = response.data;
+                let recString = recArray[0].replace(':', '%3A');
+                for (let i = 1; i < recArray.length; i++) {
+                    recString += '%2C';
+                    recString += recArray[i].replace(':', '%3A');
+                }
                 axios({
                     method: 'get',
                     url: 'https://api.spotify.com/v1/me',
@@ -181,12 +186,27 @@ function ChooseMode(props) {
                             method: 'post',
                             url: 'https://api.spotify.com/v1/users/' + userID + '/playlists',
                             data: { "name": "Generated Playlist", "description": "Generated Playlist", "public": "true" },
-                            // data: qs.stringify({ "name": "Generated Playlist", "description": "Generated Playlist", "public": "true" }),
                             headers: {
                                 Authorization: "Bearer " + accessToken,
                                 "Content-Type": "application/x-www-form-urlencoded"
                             }
                         })
+                            .then(function (response) {
+                                let playlistID = response.data.id;
+                                let addUrl = 'https://api.spotify.com/v1/playlists/' + playlistID + '/tracks?uris=' + recString;
+                                axios({
+                                    method: 'post',
+                                    url: addUrl,
+                                    data: {},
+                                    headers: {
+                                        Authorization: "Bearer " + accessToken,
+                                        "Content-Type": "application/x-www-form-urlencoded"
+                                    }
+                                })
+                                .catch(function(error) {
+                                    console.log('add item error', error);
+                                })
+                            })
                             .catch(function (error) {
                                 console.log('create playlist error', error)
                                 console.log(error.response);
@@ -198,6 +218,9 @@ function ChooseMode(props) {
             })
             .catch(function (error) {
                 console.log('recommendation error', error.response);
+            })
+            .finally(function() {
+                console.log('success!');
             })
     }
 
