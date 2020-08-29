@@ -16,6 +16,11 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 // all API endpoints below
 
+//test endpoint for heroku
+app.get('/', function(req, res) {
+  res.send("Hello Heroku");
+})
+
 //Searches for song
 app.post('/search', jsonParser, (req, res) => {
   let searchObject = req.body.searchObject;
